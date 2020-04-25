@@ -1,0 +1,53 @@
+Build started at 2020-04-25T03:40:37.268225
+Main binary: /usr/bin/python3
+Python system: Linux
+The Meson build system
+Version: 0.45.1
+Source dir: /home/ronny/Downloads/snipfire
+Build dir: /home/ronny/Downloads/snipfire/build
+Build type: native build
+Project name: io.elementary.screenshot-tool
+Sanity testing C compiler: cc
+Is cross compiler: False.
+Sanity check compiler command line: cc /home/ronny/Downloads/snipfire/build/meson-private/sanitycheckc.c -o /home/ronny/Downloads/snipfire/build/meson-private/sanitycheckc.exe
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command: /home/ronny/Downloads/snipfire/build/meson-private/sanitycheckc.exe
+Native C compiler: cc (gcc 7.5.0 "cc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0")
+Running compile:
+Working directory:  /tmp/tmphpum2buf
+Command line:  valac /tmp/tmphpum2buf/testfile.vala -C -C -o /tmp/tmphpum2buf/output.obj 
+
+Code:
+ class MesonSanityCheck : Object { }
+Compiler stdout:
+ Compilation succeeded - 1 warning(s)
+
+Compiler stderr:
+ warning: --output and -o have no effect when -C or --ccode is set
+
+Native Vala compiler: valac (valac 0.40.19)
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Found pkg-config: /usr/bin/pkg-config (0.29.1)
+Determining dependency 'glib-2.0' with pkg-config executable '/usr/bin/pkg-config'
+Native dependency glib-2.0 found: YES 2.56.4
+Determining dependency 'gdk-pixbuf-2.0' with pkg-config executable '/usr/bin/pkg-config'
+Native dependency gdk-pixbuf-2.0 found: YES 2.36.11
+Determining dependency 'glib-2.0' with pkg-config executable '/usr/bin/pkg-config'
+Native dependency glib-2.0 found: YES 2.56.4
+Determining dependency 'gobject-2.0' with pkg-config executable '/usr/bin/pkg-config'
+Native dependency gobject-2.0 found: YES 2.56.4
+Determining dependency 'gtk+-3.0' with pkg-config executable '/usr/bin/pkg-config'
+Native dependency gtk+-3.0 found: YES 3.22.30
+Determining dependency 'granite' with pkg-config executable '/usr/bin/pkg-config'
+Native dependency granite found: YES 5.4.0
+Determining dependency 'libcanberra' with pkg-config executable '/usr/bin/pkg-config'
+Native dependency libcanberra found: YES 0.30
+Program meson/post_install.py found: YES (/usr/bin/env python3 /home/ronny/Downloads/snipfire/meson/post_install.py)
+Build targets in project: 11
+Found ninja-1.8.2 at /usr/bin/ninja

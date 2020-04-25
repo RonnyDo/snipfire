@@ -1,0 +1,19 @@
+# ninja log v5
+0	8	1587778837	screenshot-icon-resources.c	990a28e772625250
+0	13	1587778837	screenshot-icon-resources.h	1719a84fb4058276
+13	207	1587778837	io.elementary.screenshot-tool@exe/meson-generated_.._screenshot-icon-resources.c.o	990b67e12757d458
+1	334	1587778838	data/io.elementary.screenshot-tool.desktop	44b7ba65752a0eed
+2	397	1587778838	data/io.elementary.screenshot-tool.appdata.xml	2e157dfacbe2ec41
+1	506	1587778838	io.elementary.screenshot-tool@exe/src/Application.c	5ea25d27d92a0a06
+1	506	1587778838	io.elementary.screenshot-tool@exe/src/ScreenshotWindow.c	5ea25d27d92a0a06
+1	506	1587778838	io.elementary.screenshot-tool@exe/src/Widgets/SelectionArea.c	5ea25d27d92a0a06
+1	506	1587778838	io.elementary.screenshot-tool@exe/src/Widgets/SaveDialog.c	5ea25d27d92a0a06
+1	506	1587778838	io.elementary.screenshot-tool@exe/src/Widgets/HeaderBar.c	5ea25d27d92a0a06
+1	506	1587778838	io.elementary.screenshot-tool@exe/src/Widgets/PreviewBox.c	5ea25d27d92a0a06
+507	1015	1587778838	io.elementary.screenshot-tool@exe/meson-generated_src_Widgets_SelectionArea.c.o	33a17257cf278e5
+507	1053	1587778838	io.elementary.screenshot-tool@exe/meson-generated_src_Widgets_HeaderBar.c.o	9052ba8f9ed125ca
+507	1054	1587778838	io.elementary.screenshot-tool@exe/meson-generated_src_Widgets_SaveDialog.c.o	34c3cd9bd7cfefde
+509	1117	1587778838	io.elementary.screenshot-tool@exe/meson-generated_src_Widgets_PreviewBox.c.o	8dd175bf550bad06
+506	1148	1587778838	io.elementary.screenshot-tool@exe/meson-generated_src_Application.c.o	c076fae08f295cdd
+506	1210	1587778838	io.elementary.screenshot-tool@exe/meson-generated_src_ScreenshotWindow.c.o	a756663e8b82697b
+1211	1344	1587778839	io.elementary.screenshot-tool	e577550d5c255725

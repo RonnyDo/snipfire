@@ -1,0 +1,168 @@
+# Dutch translation for screenshot-tool
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the screenshot-tool package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: screenshot-tool\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-21 19:07+0000\n"
+"PO-Revision-Date: 2019-12-31 15:43+0000\n"
+"Last-Translator: Jaimie85 <alsemgeest@gmail.com>\n"
+"Language-Team: Dutch <https://l10n.elementary.io/projects/screenshot-tool/"
+"screenshot-tool/nl/>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+"X-Launchpad-Export-Date: 2017-04-05 07:43+0000\n"
+
+#: src/Application.vala:38
+msgid "Screenshots"
+msgstr "Schermafdrukken"
+
+#: src/Application.vala:44
+msgid "Capture active window"
+msgstr "Maak een schermafbeelding van het actieve venster"
+
+#: src/Application.vala:45
+msgid "Capture area"
+msgstr "Opnamegebied"
+
+#: src/Application.vala:46
+msgid "Capture the whole screen"
+msgstr "Maak een afbeelding van het volledige scherm"
+
+#: src/Application.vala:47
+msgid "Take screenshot after specified delay"
+msgstr "Maak een schermafbeelding na een bepaalde vertraging"
+
+#: src/Application.vala:47
+msgid "Seconds"
+msgstr "Seconden"
+
+#: src/Application.vala:48
+msgid "Include the pointer with the screenshot"
+msgstr "Voeg de muiscursor toe aan de schermafbeelding"
+
+#: src/Application.vala:49
+msgid "Redact system text"
+msgstr "Systeemtekst onleesbaar maken"
+
+#: src/Application.vala:50
+msgid "Save screenshot to clipboard"
+msgstr "Bewaar het screenshot op het klembord"
+
+#: src/ScreenshotWindow.vala:64
+msgid "Grab the whole screen"
+msgstr "Leg het volledige scherm vast"
+
+#: src/ScreenshotWindow.vala:68
+msgid "Grab the current window"
+msgstr "Leg het huidige venster vast"
+
+#: src/ScreenshotWindow.vala:72
+msgid "Select area to grab"
+msgstr "Selecteer een gebied om vast te leggen"
+
+#: src/ScreenshotWindow.vala:82
+msgid "Grab mouse pointer:"
+msgstr "Cursor vastleggen:"
+
+#: src/ScreenshotWindow.vala:88
+msgid "Close after saving:"
+msgstr "Afsluiten na opslaan:"
+
+#: src/ScreenshotWindow.vala:94
+msgid "Conceal text:"
+msgstr "Verberg tekst:"
+
+#: src/ScreenshotWindow.vala:100
+msgid "Delay in seconds:"
+msgstr "Uitstel in seconden:"
+
+#: src/ScreenshotWindow.vala:105
+msgid "Take Screenshot"
+msgstr "Neem schermafdruk"
+
+#: src/ScreenshotWindow.vala:111
+msgid "Close"
+msgstr "Sluiten"
+
+#: src/ScreenshotWindow.vala:338
+msgid "Screenshot taken"
+msgstr "Schermafdruk genomen"
+
+#. / TRANSLATORS: %s represents a timestamp here
+#: src/ScreenshotWindow.vala:380 src/Widgets/SaveDialog.vala:89
+#, c-format
+msgid "Screenshot from %s"
+msgstr "Schermafdruk van %s"
+
+#: src/ScreenshotWindow.vala:497 src/ScreenshotWindow.vala:555
+msgid "Could not capture screenshot"
+msgstr "Kon schermafdruk niet nemen"
+
+#: src/ScreenshotWindow.vala:498
+msgid "Couldn't find an active window"
+msgstr "Kon geen actief venster vinden"
+
+#: src/ScreenshotWindow.vala:556
+msgid "Image not saved"
+msgstr "Afbeelding niet opgeslagen"
+
+#: src/Widgets/SaveDialog.vala:40
+msgid "Screenshot"
+msgstr "Schermafdruk"
+
+#: src/Widgets/SaveDialog.vala:79
+msgid "Save Image as…"
+msgstr "Afbeelding opslaan als…"
+
+#: src/Widgets/SaveDialog.vala:83
+msgid "Name:"
+msgstr "Naam:"
+
+#: src/Widgets/SaveDialog.vala:100
+msgid "Format:"
+msgstr "Formaat:"
+
+#: src/Widgets/SaveDialog.vala:124
+msgid "Folder:"
+msgstr "Map:"
+
+#: src/Widgets/SaveDialog.vala:127
+msgid "Select Screenshots Folder…"
+msgstr "Selecteer map…"
+
+#: src/Widgets/SaveDialog.vala:147
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/Widgets/SaveDialog.vala:150
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: src/Widgets/SaveDialog.vala:151
+msgid "Copy to Clipboard"
+msgstr "Kopiëren naar klembord"
+
+#~ msgid "Capture area:"
+#~ msgstr "Opnamegebied:"
+
+#~ msgid "Properties:"
+#~ msgstr "Eigenschappen:"
+
+#~ msgid "Save images of your screen or individual windows."
+#~ msgstr "Sla afbeeldingen van uw scherm of individuele vensters op."
+
+#~ msgid "translator-credits"
+#~ msgstr ""
+#~ "Launchpad Contributions:\n"
+#~ "  Fabio Zaramella https://launchpad.net/~fabiozaramella\n"
+#~ "  karel https://launchpad.net/~mrpopo666\n"
+#~ "  kay van der Zander https://launchpad.net/~kay20\n"
+#~ "  needhelp007 https://launchpad.net/~iempie3"
