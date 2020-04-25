@@ -16,7 +16,11 @@ namespace Screenshot.Widgets {
             if (preview == null) {
                 this.remove (label);
                 preview = new Gtk.Image ();	
-                this.pack_start (preview);
+
+		Gtk.ScrolledWindow win = new Gtk.ScrolledWindow(null, null);
+		win.add(preview);
+
+                this.pack_start (win);
                 this.show_all();
             }            
 
