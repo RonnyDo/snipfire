@@ -80,6 +80,8 @@ namespace Screenshot {
 
             header.take_screenshot_button.clicked.connect (take_screenshot_clicked);
 
+            header.copy_to_clipboard_button.clicked.connect(copy_to_clipboard_clicked);
+
 
             preview_box = new Widgets.PreviewBox ();
             add (preview_box);
@@ -229,6 +231,16 @@ namespace Screenshot {
             take_screenshot ();
         }
 
+        public void copy_to_clipboard_clicked () { 
+            copy_to_clipboard(preview_box.get_canvas());
+        }
+
+        private void copy_to_clipboard (Gdk.Pixbuf? pixbuf) {
+            if (pixbuf != null) {
+                Gtk.Clipboard.get_default (this.get_display ()).set_image (pixbuf);
+            }
+        }
+
         private void take_screenshot () {
             var selection_area = new Screenshot.Widgets.SelectionArea ();
             selection_area.show_all ();
@@ -363,11 +375,8 @@ namespace Screenshot {
 
             play_shutter_sound ("screen-capture", _("Screenshot taken"));
 
-            warning ("SHUTTER");
-
-            Gtk.Clipboard.get_default (this.get_display ()).set_image (screenshot);
-
-            preview_box.update (screenshot);
+            preview_box.set_canvas (screenshot);
+            copy_to_clipboard(screenshot);
 
             //this.destroy ();
 
