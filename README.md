@@ -3,11 +3,11 @@
 Grab screenhshots with the catch of an eye.
 
 * No bullshit capture mode
-* Shortcodes! Shortcodes everywhere!!
+* Shortcuts! Shortcuts everywhere!!
 * Share online
 * Quick editing
 
-![Screenshot Tool Screenshot](data/screenshot.png?raw=true)
+![Screenshot Tool Screenshot](drafts/snipfire_logo.png)
 
 ## Building, Testing, and Installation
 
@@ -25,7 +25,7 @@ Run `meson` to configure the build environment and then `ninja` to build and run
     cd build
     ninja
 
-To install, use `ninja install`, then execute with `io.elementary.screenshot-tool`
+To install, use `ninja install`, then execute with `com.github.ronnydo.snipfire`
 
     sudo ninja install
-    io.elementary.screenshot-tool
+    com.github.ronnydo.snipfire
