@@ -1,16 +1,17 @@
 namespace Screenshot.Widgets {
 	public class PreviewBox : Gtk.Box {
         
-        Gtk.Image preview;
         Gtk.DrawingArea drawing_area;
         Gtk.Label info_label = new Gtk.Label("Take a screenshot.");
         Gdk.Pixbuf screenshot;
 
-        EventHistory event_history = new EventHistory (new Pencil());      
+        EventHistory event_history = null;
 
-		public PreviewBox () {
+		public PreviewBox (EventHistory event_history) {
+            this.event_history = event_history;
             info_label = new Gtk.Label("Take a screenshot.");
             this.pack_start (info_label);
+
         }
 
         
@@ -21,13 +22,26 @@ namespace Screenshot.Widgets {
                 this.remove (info_label);
 
                 Gtk.ScrolledWindow win = new Gtk.ScrolledWindow(null, null);
+                win.set_overlay_scrolling (true);
+                //win.set_policy (Gtk.PolicyType.ALWAYS, Gtk.PolicyType.ALWAYS);
+
+                win.width_request = screenshot.get_width();
+                win.height_request = screenshot.get_height();
+                // win.set_max_content_width (1000);
+                // win.set_max_content_height (1000);
+
+                //win.set_max_content_width (screenshot.get_width());
+                //win.set_max_content_height (screenshot.get_height());
                 
                 drawing_area = new Gtk.DrawingArea ();
 
                 drawing_area.add_events (Gdk.EventMask.BUTTON_PRESS_MASK |
 						   Gdk.EventMask.BUTTON_RELEASE_MASK |
                            Gdk.EventMask.BUTTON_MOTION_MASK);
+
+
                 register_events ();
+
                 drawing_area.draw.connect (main_draw);
                 
                 win.add(drawing_area);
@@ -62,29 +76,31 @@ namespace Screenshot.Widgets {
         }
 
         public bool main_draw (Cairo.Context cr) {    
-
             Gtk.Allocation allocation;
             get_allocation (out allocation);   
                     
-            if (screenshot == null) {
+            if (screenshot != null) {
+                Cairo.ImageSurface background_surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
+                Cairo.Context background_context = new Cairo.Context (background_surface);
+                Gdk.cairo_set_source_pixbuf (background_context, screenshot, 0, 0);
+                background_context.paint ();
+
+                cr.set_source_surface (background_context.get_target (), 0, 0);
+                cr.paint ();	
+            } else {
                 warning ("Can't paint if screenshot is NULL");
-                return false;
+            } 
+            
+            if (event_history != null) {                
+                Cairo.ImageSurface canvas_surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
+                Cairo.Context canvas_context = new Cairo.Context (canvas_surface);
+                event_history.draw (canvas_surface, canvas_context);
+                
+                cr.set_source_surface (canvas_context.get_target (), 0, 0);
+                cr.paint ();
+            } else {
+                warning ("Can't paint if event_history is NULL");
             }
-
-			Cairo.ImageSurface background_surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
-			Cairo.Context background_context = new Cairo.Context (background_surface);
-            Gdk.cairo_set_source_pixbuf (background_context, screenshot, 0, 0);
-            background_context.paint ();
-
-            cr.set_source_surface (background_context.get_target (), 0, 0);
-            cr.paint ();			 
-            
-			Cairo.ImageSurface canvas_surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
-			Cairo.Context canvas_context = new Cairo.Context (canvas_surface);
-            event_history.draw (canvas_context);
-            
-			cr.set_source_surface (canvas_context.get_target (), 0, 0);
-            cr.paint ();
             
             return false;
         }

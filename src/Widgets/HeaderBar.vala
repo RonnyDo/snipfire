@@ -10,6 +10,15 @@ namespace Screenshot.Widgets {
 		Gtk.Image copy_to_clipboard_icon;
 		public Gtk.Button copy_to_clipboard_button;
 
+		Gtk.Image select_freehand_tool_icon;
+		public Gtk.Button select_freehand_tool_button;
+
+		Gtk.Image select_highlighter_tool_icon;
+		public Gtk.Button select_highlighter_tool_button;
+
+		Gtk.Image select_eraser_tool_icon;
+		public Gtk.Button select_eraser_tool_button;
+
 
 		public HeaderBar () {
 		    this.show_close_button = true;
@@ -33,12 +42,45 @@ namespace Screenshot.Widgets {
 			copy_to_clipboard_button = new Gtk.Button ();
 		    copy_to_clipboard_button.relief = Gtk.ReliefStyle.NONE;
 			copy_to_clipboard_button.set_image (copy_to_clipboard_icon);
-			take_screenshot_button.set_always_show_image (true);
+			copy_to_clipboard_button.set_always_show_image (true);
 			copy_to_clipboard_button.tooltip_text = "Copy to clipboard";	
+
+			select_freehand_tool_icon = new Gtk.Image ();
+		    select_freehand_tool_icon.gicon = new ThemedIcon ("draw-freehand");
+		    select_freehand_tool_icon.pixel_size = 24;
+
+			select_freehand_tool_button = new Gtk.Button ();
+		    select_freehand_tool_button.relief = Gtk.ReliefStyle.NONE;
+			select_freehand_tool_button.set_image (select_freehand_tool_icon);
+			select_freehand_tool_button.set_always_show_image (true);
+			select_freehand_tool_button.tooltip_text = "Freehand";
+
+			select_highlighter_tool_icon = new Gtk.Image ();
+		    select_highlighter_tool_icon.gicon = new ThemedIcon ("draw-freehand");
+		    select_freehand_tool_icon.pixel_size = 24;
+
+			select_highlighter_tool_button = new Gtk.Button ();
+		    select_highlighter_tool_button.relief = Gtk.ReliefStyle.NONE;
+			select_highlighter_tool_button.set_image (select_highlighter_tool_icon);
+			select_highlighter_tool_button.set_always_show_image (true);
+			select_highlighter_tool_button.tooltip_text = "Highlighter";
+
+			select_eraser_tool_icon = new Gtk.Image ();
+		    select_eraser_tool_icon.gicon = new ThemedIcon ("draw-eraser");
+		    select_eraser_tool_icon.pixel_size = 24;
+
+			select_eraser_tool_button = new Gtk.Button ();
+		    select_eraser_tool_button.relief = Gtk.ReliefStyle.NONE;
+			select_eraser_tool_button.set_image (select_eraser_tool_icon);
+			select_eraser_tool_button.set_always_show_image (true);
+			select_eraser_tool_button.tooltip_text = "Eraser";	
+
 
 			this.pack_start (take_screenshot_button);
 			this.pack_start (copy_to_clipboard_button);
-
+			this.pack_start (select_freehand_tool_button);
+			this.pack_start (select_highlighter_tool_button);
+			this.pack_start (select_eraser_tool_button);
 		}
 	}
 }

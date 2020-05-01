@@ -149,6 +149,7 @@ namespace Screenshot.Widgets {
             int w = get_allocated_width ();
             int h = get_allocated_height ();
 
+            
             ctx.rectangle (0, 0, w, h);
             ctx.set_source_rgba (0.1, 0.1, 0.1, 0.2);
             ctx.fill ();

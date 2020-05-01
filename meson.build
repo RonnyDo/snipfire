@@ -25,7 +25,7 @@ executable(
     'src/Widgets/HeaderBar.vala',
     'src/Widgets/PreviewBox.vala',
     'src/Widgets/Util.vala',
-    'src/Widgets/DrawHistory.vala',
+    'src/Widgets/EventHistory.vala',
     dependencies: [
         dependency('gdk-pixbuf-2.0'),
         dependency('glib-2.0'),

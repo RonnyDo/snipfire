@@ -35,6 +35,9 @@ namespace Screenshot {
         // NEW
         Widgets.HeaderBar header;
         Widgets.PreviewBox preview_box;
+
+        Widgets.Util current_util;
+        Widgets.EventHistory event_history;
         // END NEW
 
         private Settings settings;
@@ -68,7 +71,8 @@ namespace Screenshot {
             set_keep_above (true);
             stick ();
 
-            
+            current_util = new Widgets.Pencil();
+            event_history = new Widgets.EventHistory (current_util);      
             
             // NEW
             header = new Widgets.HeaderBar ();
@@ -82,8 +86,20 @@ namespace Screenshot {
 
             header.copy_to_clipboard_button.clicked.connect(copy_to_clipboard_clicked);
 
+            header.select_freehand_tool_button.clicked.connect(() => {
+                event_history.set_util (new Widgets.Pencil());
+            });
 
-            preview_box = new Widgets.PreviewBox ();
+            header.select_highlighter_tool_button.clicked.connect(() => {
+                event_history.set_util (new Widgets.Highlighter());
+            });
+
+            header.select_eraser_tool_button.clicked.connect(() => {
+                event_history.set_util (new Widgets.Eraser());
+            });
+
+
+            preview_box = new Widgets.PreviewBox (event_history);
             add (preview_box);
 
             header.take_screenshot_button.clicked();
@@ -228,7 +244,7 @@ namespace Screenshot {
         // NEW 
         public void take_screenshot_clicked () { 
             this.set_opacity (0);
-            take_screenshot ();
+            take_screenshot ();                          
         }
 
         public void copy_to_clipboard_clicked () { 
@@ -281,9 +297,8 @@ namespace Screenshot {
                             //grap_result_status = capture_area_NEW (win, redact);
                             break;
                     }      
-                    return grap_result_status;    
-                             
-                });
+                    return grap_result_status;                                 
+                });           
             });
         }
 

@@ -44,7 +44,7 @@ namespace Screenshot.Widgets {
         }
 
         public bool button_pressed (Gtk.Widget widget, Gdk.EventButton event_button) {
-            current_event = new HistoryEntry (current_util);
+            current_event = new HistoryEntry (this.current_util);
             current_event.points.append (new Point (event_button.x, event_button.y));
             event_entries.append (current_event);
 
@@ -100,10 +100,40 @@ namespace Screenshot.Widgets {
             return false;
         }
 
-        public void draw (Cairo.Context cr) {
+        public void draw (Cairo.ImageSurface sf, Cairo.Context cr) {
+            Cairo.ImageSurface highlighter_surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, sf.get_width(), sf.get_height());
+            Cairo.Context highlighter_context = new Cairo.Context (highlighter_surface);
+
+            Cairo.ImageSurface solid_surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, sf.get_width(), sf.get_height());
+            Cairo.Context solid_context = new Cairo.Context (solid_surface);
+
+
             foreach (var event in event_entries) {
-                event.draw (cr);
+                switch (event.util.operator_type) {
+                    case Cairo.Operator.CLEAR:
+                        // erase on all contextes
+                        event.draw (highlighter_context);
+                        event.draw (solid_context);
+                        break;
+                    case Cairo.Operator.SOURCE: 
+                        // highlights are of type source:
+                        event.draw (highlighter_context);
+                        break;
+                    default:
+                        // all others to solid context
+                        event.draw (solid_context);
+                        break;
+                }
             }
+
+            cr.set_operator (Cairo.Operator.OVER);
+            cr.set_source_surface (highlighter_context.get_target (), 0, 0);
+            cr.paint();
+
+            cr.set_operator (Cairo.Operator.OVER);
+            cr.set_source_surface (solid_context.get_target (), 0, 0);
+            cr.paint();
+
         }
     }
 }
