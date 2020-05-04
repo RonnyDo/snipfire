@@ -1,54 +1,64 @@
 namespace Screenshot.Widgets {
 	public class PreviewBox : Gtk.Box {
-        
+                
+        Gtk.ScrolledWindow scrolled_window;
+        Gtk.Box drawing_box;
+
         Gtk.DrawingArea drawing_area;
-        Gtk.Label info_label = new Gtk.Label("Take a screenshot.");
+        Gtk.Label info_label;
         Gdk.Pixbuf screenshot;
+
+        Cairo.ImageSurface surface;
 
         EventHistory event_history = null;
 
+        construct {
+            scrolled_window = new Gtk.ScrolledWindow(null, null);
+            //scrolled_window.set_overlay_scrolling (true);
+            this.set_halign (Gtk.Align.CENTER);
+            this.set_valign (Gtk.Align.CENTER);
+            
+            info_label = new Gtk.Label("Take a screenshot.");     
+            this.pack_start (info_label);           
+            
+        }
+
 		public PreviewBox (EventHistory event_history) {
             this.event_history = event_history;
-            info_label = new Gtk.Label("Take a screenshot.");
-            this.pack_start (info_label);
-
         }
 
         
         public void set_canvas (Gdk.Pixbuf? screenshot) {            
             this.screenshot = screenshot;
 
+            // first screenshot
             if (drawing_area == null) {
                 this.remove (info_label);
 
-                Gtk.ScrolledWindow win = new Gtk.ScrolledWindow(null, null);
-                win.set_overlay_scrolling (true);
-                //win.set_policy (Gtk.PolicyType.ALWAYS, Gtk.PolicyType.ALWAYS);
-
-                win.width_request = screenshot.get_width();
-                win.height_request = screenshot.get_height();
-                // win.set_max_content_width (1000);
-                // win.set_max_content_height (1000);
-
-                //win.set_max_content_width (screenshot.get_width());
-                //win.set_max_content_height (screenshot.get_height());
-                
                 drawing_area = new Gtk.DrawingArea ();
-
-                drawing_area.add_events (Gdk.EventMask.BUTTON_PRESS_MASK |
-						   Gdk.EventMask.BUTTON_RELEASE_MASK |
-                           Gdk.EventMask.BUTTON_MOTION_MASK);
-
-
-                register_events ();
-
-                drawing_area.draw.connect (main_draw);
+                scrolled_window.add(drawing_area);
                 
-                win.add(drawing_area);
+                this.pack_start (scrolled_window); 
+            }
 
-                this.pack_start (win);
-                this.show_all();
-            } 
+            // FIXME: Memory error when drawing on new seconds screenshot
+            
+            
+            scrolled_window.set_size_request (screenshot.get_width(), screenshot.get_height());
+            this.get_window().resize (screenshot.get_width(), screenshot.get_height());
+            
+            drawing_area.add_events (Gdk.EventMask.BUTTON_PRESS_MASK |
+                        Gdk.EventMask.BUTTON_RELEASE_MASK |
+                        Gdk.EventMask.BUTTON_MOTION_MASK);
+
+
+            register_events ();
+
+            drawing_area.draw.connect (main_draw);
+            
+            this.show_all();
+            
+            
         }
 
         private void register_events () {
@@ -66,8 +76,10 @@ namespace Screenshot.Widgets {
 
 
         public Gdk.Pixbuf? get_canvas () {
-            error("TBD: get_canvas ()");
-            //return preview.get_pixbuf();
+            Gtk.Allocation allocation;
+            get_allocation (out allocation); 
+
+            return Gdk.pixbuf_get_from_surface(this.surface, 0, 0, allocation.width, allocation.height);
         }
 
 
@@ -78,10 +90,12 @@ namespace Screenshot.Widgets {
         public bool main_draw (Cairo.Context cr) {    
             Gtk.Allocation allocation;
             get_allocation (out allocation);   
+            
+            surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
                     
             if (screenshot != null) {
-                Cairo.ImageSurface background_surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
-                Cairo.Context background_context = new Cairo.Context (background_surface);
+                
+                Cairo.Context background_context = new Cairo.Context (surface);
                 Gdk.cairo_set_source_pixbuf (background_context, screenshot, 0, 0);
                 background_context.paint ();
 
@@ -92,9 +106,9 @@ namespace Screenshot.Widgets {
             } 
             
             if (event_history != null) {                
-                Cairo.ImageSurface canvas_surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
-                Cairo.Context canvas_context = new Cairo.Context (canvas_surface);
-                event_history.draw (canvas_surface, canvas_context);
+                //Cairo.ImageSurface canvas_surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, allocation.width, allocation.height);
+                Cairo.Context canvas_context = new Cairo.Context (surface);
+                event_history.draw (surface, canvas_context);
                 
                 cr.set_source_surface (canvas_context.get_target (), 0, 0);
                 cr.paint ();

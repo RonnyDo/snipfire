@@ -16,6 +16,9 @@ namespace Screenshot.Widgets {
 		Gtk.Image select_highlighter_tool_icon;
 		public Gtk.Button select_highlighter_tool_button;
 
+		Gtk.Image select_rectangle_tool_icon;
+		public Gtk.Button select_rectangle_tool_button;
+
 		Gtk.Image select_eraser_tool_icon;
 		public Gtk.Button select_eraser_tool_button;
 
@@ -57,13 +60,23 @@ namespace Screenshot.Widgets {
 
 			select_highlighter_tool_icon = new Gtk.Image ();
 		    select_highlighter_tool_icon.gicon = new ThemedIcon ("draw-freehand");
-		    select_freehand_tool_icon.pixel_size = 24;
+		    select_highlighter_tool_icon.pixel_size = 24;
 
 			select_highlighter_tool_button = new Gtk.Button ();
 		    select_highlighter_tool_button.relief = Gtk.ReliefStyle.NONE;
 			select_highlighter_tool_button.set_image (select_highlighter_tool_icon);
 			select_highlighter_tool_button.set_always_show_image (true);
 			select_highlighter_tool_button.tooltip_text = "Highlighter";
+
+			select_rectangle_tool_icon = new Gtk.Image ();
+		    select_rectangle_tool_icon.gicon = new ThemedIcon ("draw-freehand");
+		    select_rectangle_tool_icon.pixel_size = 24;
+
+			select_rectangle_tool_button = new Gtk.Button ();
+		    select_rectangle_tool_button.relief = Gtk.ReliefStyle.NONE;
+			select_rectangle_tool_button.set_image (select_rectangle_tool_icon);
+			select_rectangle_tool_button.set_always_show_image (true);
+			select_rectangle_tool_button.tooltip_text = "Rectangle";
 
 			select_eraser_tool_icon = new Gtk.Image ();
 		    select_eraser_tool_icon.gicon = new ThemedIcon ("draw-eraser");
@@ -80,6 +93,7 @@ namespace Screenshot.Widgets {
 			this.pack_start (copy_to_clipboard_button);
 			this.pack_start (select_freehand_tool_button);
 			this.pack_start (select_highlighter_tool_button);
+			this.pack_start (select_rectangle_tool_button);
 			this.pack_start (select_eraser_tool_button);
 		}
 	}

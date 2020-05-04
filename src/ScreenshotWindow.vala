@@ -69,6 +69,7 @@ namespace Screenshot {
             }
 
             set_keep_above (true);
+            //set_resizable (false);
             stick ();
 
             current_util = new Widgets.Pencil();
@@ -92,6 +93,10 @@ namespace Screenshot {
 
             header.select_highlighter_tool_button.clicked.connect(() => {
                 event_history.set_util (new Widgets.Highlighter());
+            });
+
+            header.select_rectangle_tool_button.clicked.connect(() => {
+                event_history.set_util (new Widgets.Rectangle());
             });
 
             header.select_eraser_tool_button.clicked.connect(() => {
