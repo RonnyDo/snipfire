@@ -14,12 +14,14 @@ namespace Screenshot.Widgets {
 
         construct {
             scrolled_window = new Gtk.ScrolledWindow(null, null);
-            //scrolled_window.set_overlay_scrolling (true);
-            this.set_halign (Gtk.Align.CENTER);
-            this.set_valign (Gtk.Align.CENTER);
+            scrolled_window.set_halign (Gtk.Align.CENTER);
+            scrolled_window.set_valign (Gtk.Align.CENTER);
+
+            scrolled_window.set_propagate_natural_height (true);
+            scrolled_window.set_propagate_natural_width (true);
             
             info_label = new Gtk.Label("Take a screenshot.");     
-            this.pack_start (info_label);           
+            this.pack_start (info_label, true, true);           
             
         }
 
@@ -36,42 +38,42 @@ namespace Screenshot.Widgets {
                 this.remove (info_label);
 
                 drawing_area = new Gtk.DrawingArea ();
+                register_events ();
+
                 scrolled_window.add(drawing_area);
                 
-                this.pack_start (scrolled_window); 
+                this.pack_start (scrolled_window, true, true);        
             }
 
             // FIXME: Memory error when drawing on new seconds screenshot
             
+            drawing_area.set_size_request (screenshot.get_width(), screenshot.get_height());
+            // scrolled_window.set_max_content_width (screenshot.get_width());
+            // scrolled_window.set_max_content_height (screenshot.get_height());
             
-            scrolled_window.set_size_request (screenshot.get_width(), screenshot.get_height());
-            this.get_window().resize (screenshot.get_width(), screenshot.get_height());
             
+            // FIXME: The fillowing numbers have to be added to resize the window properly. There are guessed and 
+            // I have no clue how to derive them. The following line just fixes the scrolledWindow:
+            // -> scrolled_window.get_parent().set_size_request (screenshot.get_width(), screenshot.get_height());
+            int ominous_width = 102;
+            int ominous_height = 158;
+            this.get_window().resize (screenshot.get_width() + ominous_width, screenshot.get_height() + ominous_height);                        
+            
+            this.show_all();
+        }
+
+        private void register_events () {
             drawing_area.add_events (Gdk.EventMask.BUTTON_PRESS_MASK |
                         Gdk.EventMask.BUTTON_RELEASE_MASK |
                         Gdk.EventMask.BUTTON_MOTION_MASK);
 
-
-            register_events ();
-
-            drawing_area.draw.connect (main_draw);
-            
-            this.show_all();
-            
-            
-        }
-
-        private void register_events () {
             drawing_area.button_press_event.connect (event_history.button_pressed);
             drawing_area.motion_notify_event.connect (event_history.motion_notified);
             drawing_area.button_release_event.connect (event_history.button_released);
+
+            drawing_area.draw.connect (main_draw);
             
             event_history.update_event.connect(history_updated);
-        }
-
-        public int get_canvas_hash () {
-            error ("TBD. e.g. to decice if canvas changed and should be saved again");
-            //return 0;
         }
 
 
