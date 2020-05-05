@@ -87,6 +87,12 @@ namespace Screenshot {
 
             header.copy_to_clipboard_button.clicked.connect(copy_to_clipboard_clicked);
 
+            header.undo_button.clicked.connect(() => {
+                event_history.undo();
+            });
+
+            header.save_button.clicked.connect(save_button_clicked);
+
             header.select_freehand_tool_button.clicked.connect(() => {
                 event_history.set_util (new Widgets.Pencil());
             });
@@ -256,6 +262,16 @@ namespace Screenshot {
             copy_to_clipboard(preview_box.get_canvas());
         }
 
+        public void save_button_clicked () {
+            var file = display_save_dialog ();
+            
+            if (file != null) {
+                string path = file.get_path ();
+                var pixbuf = preview_box.get_canvas();
+                pixbuf.save (path, "png", null);
+            }
+        }
+
         private void copy_to_clipboard (Gdk.Pixbuf? pixbuf) {
             if (pixbuf != null) {
                 Gtk.Clipboard.get_default (this.get_display ()).set_image (pixbuf);
@@ -379,7 +395,6 @@ namespace Screenshot {
                     win_rect.width = width;
                     win_rect.height = height;
                     break;
-
             }
 
             if (redact) {
@@ -395,6 +410,7 @@ namespace Screenshot {
 
             play_shutter_sound ("screen-capture", _("Screenshot taken"));
 
+            event_history.clear();
             preview_box.set_canvas (screenshot);
             copy_to_clipboard(screenshot);
 
@@ -457,6 +473,38 @@ namespace Screenshot {
 
             return false;
         }
+
+
+
+        public File display_save_dialog () {
+			var chooser = create_file_chooser ("Save file", Gtk.FileChooserAction.SAVE);
+			File file = null;
+			if (chooser.run () == Gtk.ResponseType.ACCEPT)
+			file = chooser.get_file ();
+			chooser.destroy();
+			return file;
+        }
+        
+        public Gtk.FileChooserDialog create_file_chooser (string title, Gtk.FileChooserAction action) {
+			var chooser = new Gtk.FileChooserDialog (title, this, action);
+			chooser.add_button ("_Cancel", Gtk.ResponseType.CANCEL);
+			if (action == Gtk.FileChooserAction.OPEN) {
+				chooser.add_button ("_Open", Gtk.ResponseType.ACCEPT);
+			} else if (action == Gtk.FileChooserAction.SAVE) {
+				chooser.add_button ("_Save", Gtk.ResponseType.ACCEPT);
+				chooser.set_do_overwrite_confirmation (true);
+			}
+			var filter1 = new Gtk.FileFilter ();
+			filter1.set_filter_name (_("PNG files"));
+			filter1.add_pattern ("*.png");
+			chooser.add_filter (filter1);
+			
+			var filter = new Gtk.FileFilter ();
+			filter.set_filter_name (_("All files"));
+			filter.add_pattern ("*");
+			chooser.add_filter (filter);
+			return chooser;
+		}
 
 
         // NEW END

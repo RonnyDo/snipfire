@@ -43,6 +43,18 @@ namespace Screenshot.Widgets {
             this.current_util = util;
         }
 
+        public void clear () {
+            // clears the history;
+            current_event = null;
+            event_entries = new List<HistoryEntry> ();
+            update_event ();
+        }
+
+        public void undo () {
+            event_entries.remove_link (event_entries.last());
+            update_event ();
+        }
+
         public bool button_pressed (Gtk.Widget widget, Gdk.EventButton event_button) {
             current_event = new HistoryEntry (this.current_util);
             current_event.points.append (new Point (event_button.x, event_button.y));
